@@ -1,90 +1,92 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { Button } from "./ui/button";
+import { Languages } from "lucide-react";
 
-export default function StoryTranslator() {
+export default function StoryTranslator({ story }) {
   const [supported, setSupported] = useState(true);
-  const [input, setInput] = useState("Hello, world!");
-  const [detected, setDetected] = useState("not sure what language this is");
-  const [translation, setTranslation] = useState("");
-  const [targetLang, setTargetLang] = useState("es");
+  const [targetLang, setTargetLang] = useState(""); // empty means no selection
+  const [translatedStory, setTranslatedStory] = useState("");
+  const [isTranslating, setIsTranslating] = useState(false);
 
   useEffect(() => {
-    if (!("LanguageDetector" in self)) {
+    if (!("LanguageDetector" in self) || !("Translator" in self)) {
       setSupported(false);
-      return;
     }
+  }, []);
 
-    let detector;
-    (async () => {
-      detector = await LanguageDetector.create();
-
-      if (input.trim()) {
-        const { detectedLanguage, confidence } = (
-          await detector.detect(input.trim())
-        )[0];
-        setDetected(
-          `${(confidence * 100).toFixed(1)}% sure this is ${languageTagToHumanReadable(
-            detectedLanguage,
-            "en"
-          )}`
-        );
-      }
-    })();
-
-    const languageTagToHumanReadable = (languageTag, targetLanguage) => {
-      const displayNames = new Intl.DisplayNames([targetLanguage], {
-        type: "language",
-      });
-      return displayNames.of(languageTag);
-    };
-  }, [input]);
-
-  async function handleTranslate(e) {
+  const handleTranslate = async (e) => {
     e.preventDefault();
-    if (!("Translator" in self)) return;
+    if (!targetLang) return;
 
-    const detector = await LanguageDetector.create();
-    const sourceLanguage = (await detector.detect(input.trim()))[0].detectedLanguage;
+    setIsTranslating(true);
+    try {
+      const detector = await LanguageDetector.create();
+      const detected = await detector.detect(story.trim());
+      const sourceLanguage = detected[0]?.detectedLanguage || "en";
 
-    const availability = await Translator.availability({
-      sourceLanguage,
-      targetLanguage: targetLang,
-    });
+      const availability = await Translator.availability({
+        sourceLanguage,
+        targetLanguage: targetLang,
+      });
 
-    if (availability === "unavailable") {
-      setTranslation("This language pair is not supported.");
-      return;
+      if (availability === "unavailable") {
+        setTranslatedStory("⚠️ This language pair is not supported.");
+        return;
+      }
+
+      const translator = await Translator.create({
+        sourceLanguage,
+        targetLanguage: targetLang,
+      });
+
+      const translation = await translator.translate(story.trim());
+      setTranslatedStory(translation);
+    } catch (error) {
+      console.error("Translation failed:", error);
+      setTranslatedStory("⚠️ An error occurred during translation.");
+    } finally {
+      setIsTranslating(false);
     }
-
-    const translator = await Translator.create({
-      sourceLanguage,
-      targetLanguage: targetLang,
-    });
-
-    setTranslation(await translator.translate(input.trim()));
-  }
+  };
 
   if (!supported) {
-    return <p>Your browser doesn’t support the Language Detector API.</p>;
+    return <p>Your browser doesn’t support the Language Detector or Translator API.</p>;
   }
 
   return (
-    <main>
-      <h1>💬 Translator</h1>
-      <form onSubmit={handleTranslate}>
-        <textarea value={input} onChange={(e) => setInput(e.target.value)} />
-        <p>I’m {detected}.</p>
-        <select value={targetLang} onChange={(e) => setTargetLang(e.target.value)}>
+    <div className="mb-6">
+      <form onSubmit={handleTranslate} className="flex flex-col sm:flex-row gap-4 items-center">
+        <select
+          value={targetLang}
+          onChange={(e) => setTargetLang(e.target.value)}
+          className="border border-green-300 rounded-xl h-12 px-4 focus:ring-green-500 focus:border-green-500"
+        >
+          <option value="">Choose your language</option>
           <option value="en">English</option>
           <option value="fr">French</option>
           <option value="ja">Japanese</option>
           <option value="pt">Portuguese</option>
           <option value="es">Spanish</option>
         </select>
-        <button type="submit">Translate</button>
+
+        <Button
+          type="submit"
+          disabled={isTranslating || !targetLang}
+          className="h-12 px-6 bg-green-600 text-white flex items-center gap-2"
+        >
+          <Languages className="h-4 w-4" />
+          {isTranslating ? "Translating..." : "Translate"}
+        </Button>
       </form>
-      <output>{translation}</output>
-    </main>
+
+      {translatedStory && (
+        <div className="bg-yellow-50/70 p-6 rounded-xl mt-4 border border-yellow-200">
+          <h3 className="font-semibold text-yellow-800 mb-2">Translated Story:</h3>
+          <div className="whitespace-pre-wrap text-gray-800">{translatedStory}</div>
+        </div>
+      )}
+    </div>
   );
 }
