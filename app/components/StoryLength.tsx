@@ -10,9 +10,9 @@ import {
 
 export default function StoryLength({ value, onChange }) {
   const listStoryLength = [
-    "Short (1-2 minutes)",
-    "Medium (2-3 minutes)",
-    "Long (3-4 minutes)",
+    { label: "Short (1-2 minutes)", value: "short" },
+    { label: "Medium (2-3 minutes)", value: "medium" },
+    { label: "Long (3-4 minutes)", value: "long" },
   ];
   return (
     <div className="space-y-2">
@@ -29,8 +29,8 @@ export default function StoryLength({ value, onChange }) {
 
         <SelectContent className="z-[9999] bg-white shadow-lg border border-green-100 rounded-xl">
           {listStoryLength.map((length) => (
-            <SelectItem key={length} value={length}>
-              {length}
+            <SelectItem key={length.value} value={length.value}>
+              {length.label}
             </SelectItem>
           ))}
         </SelectContent>
