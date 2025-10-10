@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "./ui/button";
-import { BookOpen, RotateCcw, Download, Sparkles, Volume2 } from "lucide-react";
+import { BookOpen, RotateCcw, Download, Sparkles, Volume2, Pause } from "lucide-react";
 
 export default function StoryDisplay({ story, childName, topic, onCreateNew }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [audioUrl, setAudioUrl] = useState(null);
+  const audioRef = useRef(null);
 
   const handleDownload = () => {
     const element = document.createElement("a");
@@ -19,8 +21,21 @@ export default function StoryDisplay({ story, childName, topic, onCreateNew }) {
 
   const handlePlayAudio = async () => {
     try {
-      setIsPlaying(true);
+      // If already playing, pause instead
+      if (audioRef.current && !audioRef.current.paused) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+        return;
+      }
 
+      // If we already have audio generated, just play it again
+      if (audioUrl) {
+        audioRef.current.play();
+        setIsPlaying(true);
+        return;
+      }
+
+      setIsPlaying(true);
       const response = await fetch("/api/generate-audio", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -34,11 +49,14 @@ export default function StoryDisplay({ story, childName, topic, onCreateNew }) {
 
       const blob = await response.blob();
       const url = URL.createObjectURL(blob);
+      setAudioUrl(url);
 
       const audio = new Audio(url);
+      audioRef.current = audio;
+
       audio.play();
       audio.onended = () => setIsPlaying(false);
-    } catch (error: any) {
+    } catch (error) {
       console.error("Play Audio Error:", error);
       alert(error.message);
       setIsPlaying(false);
@@ -56,24 +74,35 @@ export default function StoryDisplay({ story, childName, topic, onCreateNew }) {
         <p className="text-gray-700">{topic}</p>
       </div>
 
-      {/* Story */}
+      {/* Story Content */}
       <div className="p-8">
         <div className="bg-green-50/50 p-8 rounded-xl mb-8 border border-green-100">
           <div className="whitespace-pre-wrap leading-relaxed text-gray-800">{story}</div>
         </div>
 
+        {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button onClick={handlePlayAudio} className="h-12 px-6 bg-green-600 text-white">
+          <Button
+            onClick={handlePlayAudio}
+            className="h-12 px-6 bg-green-600 text-white"
+          >
             <Volume2 className="mr-2 h-4 w-4" />
-            {isPlaying ? "Playing..." : "Play Story"}
+            {isPlaying ? "Pause Story" : "Play Story"}
           </Button>
 
-          <Button onClick={onCreateNew} variant="outline" className="h-12 px-6">
+          <Button
+            onClick={onCreateNew}
+            variant="outline"
+            className="h-12 px-6 border-green-300 text-green-700 hover:bg-green-50"
+          >
             <RotateCcw className="mr-2 h-4 w-4" />
             Create Another Story
           </Button>
 
-          <Button onClick={handleDownload} className="h-12 px-6 bg-green-600 text-white">
+          <Button
+            onClick={handleDownload}
+            className="h-12 px-6 bg-green-600 hover:bg-green-700 text-white"
+          >
             <Download className="mr-2 h-4 w-4" />
             Save Story
           </Button>
