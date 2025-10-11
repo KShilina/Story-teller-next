@@ -49,15 +49,14 @@ const emotionList = [
   "Sad",
   "Lonely",
   "Proud",
-  "Grateful"
+  "Grateful",
 ];
-
 
 export default function StoryForm({ onGenerateStory, isGenerating }) {
   const [childName, setChildName] = useState("");
   const [age, setAge] = useState("");
   const [topic, setTopic] = useState("");
-  const [length, setLength] = useState("medium");
+  const [length, setLength] = useState("");
   const [customTopic, setCustomTopic] = useState("");
   const [emotionDetection, setEmotionDetection] = useState("");
 
@@ -65,13 +64,13 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
     e.preventDefault();
     if (childName && age) {
       const finalTopic = customTopic.trim() || topic || "Surprise Adventure";
-      const storyEmotion = emotionDetection.trim()
+      const storyEmotion = emotionDetection.trim();
       onGenerateStory({
         childName: childName.trim(),
         age: parseInt(age),
         topic: finalTopic || topic || "Surprise Adventure",
         length,
-        emotionDetection:storyEmotion,
+        emotionDetection: storyEmotion,
       });
     }
   };
@@ -133,14 +132,15 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
             <Label htmlFor="topic" className="text-gray-900 font-medium">
               Adventure Theme
             </Label>
-            <Select value={topic} onValueChange={setTopic}>
-              <SelectTrigger className="h-12 border-green-300 focus:border-green-600">
-                <SelectValue placeholder="Choose an adventure theme" />
+            <Select onValueChange={setTopic} value={topic}>
+              <SelectTrigger className="w-full border-green-200 focus:ring-green-500">
+                <SelectValue placeholder="Select Topic" />
               </SelectTrigger>
-              <SelectContent>
-                {storyTopics.map((storyTopic) => (
-                  <SelectItem key={storyTopic} value={storyTopic}>
-                    {storyTopic}
+
+              <SelectContent className="z-[9999] bg-white shadow-lg border border-green-100 rounded-xl">
+                {storyTopics.map((topic) => (
+                  <SelectItem key={topic} value={topic}>
+                    {topic}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -169,14 +169,22 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
 
           {/* Emotion Detection */}
           <div className="space-y-2">
-            <Label htmlFor="emotionDetection" className="text-gray-900 font-medium">
+            <Label
+              htmlFor="emotionDetection"
+              className="text-gray-900 font-medium"
+            >
               Emotion Detection
             </Label>
-            <Select id="emotionDetection" value={emotionDetection} onValueChange={setEmotionDetection}>
-              <SelectTrigger className="h-12 border-green-300 focus:border-green-600">
-                <SelectValue placeholder="Choose an emotion to apply" />
+
+            <Select
+              onValueChange={setEmotionDetection}
+              value={emotionDetection}
+            >
+              <SelectTrigger className="w-full border-green-200 focus:ring-green-500">
+                <SelectValue placeholder="Select Emotion" />
               </SelectTrigger>
-              <SelectContent>
+
+              <SelectContent className="z-[9999] bg-white shadow-lg border border-green-100 rounded-xl">
                 {emotionList.map((emotion) => (
                   <SelectItem key={emotion} value={emotion}>
                     {emotion}
@@ -184,6 +192,7 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
                 ))}
               </SelectContent>
             </Select>
+
             <p className="text-xs text-gray-500">
               Each emotion creates unique story variations
             </p>
