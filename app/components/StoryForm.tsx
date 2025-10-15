@@ -60,7 +60,7 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
   const [customTopic, setCustomTopic] = useState("");
   const [emotionDetection, setEmotionDetection] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (childName && age) {
       const finalTopic = customTopic.trim() || topic || "Surprise Adventure";
@@ -68,7 +68,7 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
       onGenerateStory({
         childName: childName.trim(),
         age: parseInt(age),
-        topic: finalTopic || topic || "Surprise Adventure",
+        topic: finalTopic,
         length,
         emotionDetection: storyEmotion,
       });
@@ -79,8 +79,9 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
     childName.trim() && age && parseInt(age) >= 1 && parseInt(age) <= 18;
 
   return (
-    <div className="w-full max-w-lg mx-auto bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-green-200">
-      <div className="text-center p-6 bg-green-50 rounded-t-2xl">
+    <div className="w-full max-w-lg mx-auto bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border border-green-200 overflow-hidden">
+      {/* Header */}
+      <div className="text-center p-6 bg-green-50 rounded-t-3xl">
         <div className="flex items-center justify-center gap-2 mb-2">
           <Sparkles className="h-5 w-5 text-green-600" />
           <h2 className="text-lg font-semibold text-gray-900">
@@ -92,9 +93,11 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
         </p>
       </div>
 
+      {/* Form */}
       <div className="p-6 space-y-6">
         <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
+          {/* Child Name */}
+          <div className="space-y-1">
             <Label htmlFor="childName" className="text-gray-900 font-medium">
               Child's Name
             </Label>
@@ -108,7 +111,8 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
             />
           </div>
 
-          <div className="space-y-2">
+          {/* Age */}
+          <div className="space-y-1">
             <Label htmlFor="age" className="text-gray-900 font-medium">
               Age
             </Label>
@@ -128,19 +132,19 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
             </p>
           </div>
 
-          <div className="space-y-2">
+          {/* Topic Select */}
+          <div className="space-y-1">
             <Label htmlFor="topic" className="text-gray-900 font-medium">
               Adventure Theme
             </Label>
-            <Select onValueChange={setTopic} value={topic}>
+            <Select value={topic} onValueChange={setTopic}>
               <SelectTrigger className="w-full border-green-200 focus:ring-green-500">
                 <SelectValue placeholder="Select Topic" />
               </SelectTrigger>
-
-              <SelectContent className="z-[9999] bg-white shadow-lg border border-green-100 rounded-xl">
-                {storyTopics.map((topic) => (
-                  <SelectItem key={topic} value={topic}>
-                    {topic}
+              <SelectContent className="z-[9999] bg-white shadow-lg border border-green-100 rounded-xl max-h-60 overflow-auto">
+                {storyTopics.map((t) => (
+                  <SelectItem key={t} value={t}>
+                    {t}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -151,7 +155,7 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
           </div>
 
           {/* Custom Topic */}
-          <div className="space-y-2">
+          <div className="space-y-1">
             <Label htmlFor="customTopic" className="text-gray-900 font-medium">
               Create Your Own Theme
             </Label>
@@ -168,23 +172,21 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
           </div>
 
           {/* Emotion Detection */}
-          <div className="space-y-2">
+          <div className="space-y-1">
             <Label
               htmlFor="emotionDetection"
               className="text-gray-900 font-medium"
             >
               Emotion Detection
             </Label>
-
             <Select
-              onValueChange={setEmotionDetection}
               value={emotionDetection}
+              onValueChange={setEmotionDetection}
             >
               <SelectTrigger className="w-full border-green-200 focus:ring-green-500">
                 <SelectValue placeholder="Select Emotion" />
               </SelectTrigger>
-
-              <SelectContent className="z-[9999] bg-white shadow-lg border border-green-100 rounded-xl">
+              <SelectContent className="z-[9999] bg-white shadow-lg border border-green-100 rounded-xl max-h-60 overflow-auto">
                 {emotionList.map((emotion) => (
                   <SelectItem key={emotion} value={emotion}>
                     {emotion}
@@ -192,27 +194,28 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
                 ))}
               </SelectContent>
             </Select>
-
             <p className="text-xs text-gray-500">
               Each emotion creates unique story variations
             </p>
           </div>
 
+          {/* Story Length */}
           <StoryLength value={length} onChange={setLength} />
 
+          {/* Submit */}
           <Button
             type="submit"
             disabled={!isValid || isGenerating}
-            className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl disabled:opacity-50 transition-colors"
+            className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
           >
             {isGenerating ? (
               <>
-                <Wand2 className="mr-2 h-4 w-4 animate-spin" />
+                <Wand2 className="animate-spin h-4 w-4" />
                 Creating your story...
               </>
             ) : (
               <>
-                <Sparkles className="mr-2 h-4 w-4" />
+                <Sparkles className="h-4 w-4" />
                 Generate Story
               </>
             )}

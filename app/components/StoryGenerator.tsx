@@ -12,7 +12,7 @@ export async function generateStory(data) {
     return "Your browser doesn’t support the Writer API. Use Chrome and join the Early Preview Program.";
   }
 
-  const context = `${data.childName}, age ${data.age}, topic: ${data.topic}`;
+  const context = `${data.childName}, age ${data.age}, topic: ${data?.topic}`;
   const options = {
     tone: "neutral",
     length: data.length,
