@@ -9,15 +9,15 @@ export default function HeroSection({ onGenerateStory, isGenerating }) {
   return (
     <section className="relative bg-gradient-to-b from-[#E4E9DC] to-[#F6F8F4] overflow-hidden py-20">
       <div className="absolute top-0 left-0 w-full h-64 sm:h-80 md:h-96 overflow-hidden">
-        <div className="absolute top-10 left-10 w-24 h-24 bg-green-600 rounded-full blur-3xl"></div>
-        <div className="absolute top-40 right-20 w-32 h-32 bg-green-500 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-1/4 w-20 h-20 bg-green-400 rounded-full blur-3xl"></div>
+        <div className="absolute top-10 left-10 w-24 h-24 rounded-full blur-3xl bg-[#BD8585]"></div>
+        <div className="absolute top-40 right-20 w-32 h-32 rounded-full blur-3xl bg-[#BD8585]"></div>
+        <div className="absolute bottom-20 left-1/4 w-20 h-20 rounded-full blur-3xl bg-[#BD8585]"></div>
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         {/* Intro */}
         <div className="inline-flex items-center justify-center gap-2 bg-[#BCE0B0]/40 px-4 py-2 rounded-full mb-6 mx-auto">
-          <Sparkles className="h-5 w-5 text-[#97B48E]" />
+          <Sparkles className="h-5 w-5 text-[#BD8581]" />
           <span className="text-sm font-medium text-[#353D2D]">AI-Powered Storytelling</span>
         </div>
 
@@ -50,9 +50,9 @@ export default function HeroSection({ onGenerateStory, isGenerating }) {
         </div>
 
         {/* Parents Love It */}
-        <div className="mb-12">
+        {/* <div className="mb-12">
           <ParentsLoveIt />
-        </div>
+        </div> */}
       </div>
     </section>
   );

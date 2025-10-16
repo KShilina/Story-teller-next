@@ -83,7 +83,7 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
       {/* Header */}
       <div className="text-center p-6 bg-green-50 rounded-t-3xl">
         <div className="flex items-center justify-center gap-2 mb-2">
-          <Sparkles className="h-5 w-5 text-green-600" />
+          <Sparkles className="h-5 w-5 text-[#BD8581]" />
           <h2 className="text-lg font-semibold text-gray-900">
             Create Your Story
           </h2>
@@ -127,7 +127,7 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
               className="h-12 border-green-300 focus:border-green-600 focus:ring-green-600/10"
               required
             />
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 text-left">
               Stories are automatically tailored to be age-appropriate
             </p>
           </div>
@@ -149,7 +149,7 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
                 ))}
               </SelectContent>
             </Select>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 text-left">
               Each theme creates unique story variations
             </p>
           </div>
@@ -166,7 +166,7 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
               placeholder="Type your own story idea (optional)"
               className="h-12 border-green-300 focus:border-green-600 focus:ring-green-600/10"
             />
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 text-left">
               If filled, your custom theme will replace the selected one
             </p>
           </div>
@@ -194,7 +194,7 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
                 ))}
               </SelectContent>
             </Select>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-500 text-left">
               Each emotion creates unique story variations
             </p>
           </div>
