@@ -2,7 +2,6 @@
 
 import StoryForm from "./StoryForm";
 import WhyChildrenLoveIt from "./WhyChildrenLoveIt";
-import ParentsLoveIt from "./ParentsLoveIt";
 import { Sparkles } from "lucide-react";
 
 export default function HeroSection({ onGenerateStory, isGenerating }) {
@@ -18,20 +17,28 @@ export default function HeroSection({ onGenerateStory, isGenerating }) {
         {/* Intro */}
         <div className="inline-flex items-center justify-center gap-2 bg-[#BCE0B0]/40 px-4 py-2 rounded-full mb-6 mx-auto">
           <Sparkles className="h-5 w-5 text-[#BD8581]" />
-          <span className="text-sm font-medium text-[#353D2D]">AI-Powered Storytelling</span>
+          <span className="text-sm font-medium text-[#353D2D]">
+            AI-Powered Storytelling
+          </span>
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold text-[#353D2D] mb-6 leading-tight">
-          Create magical stories<br />for your child
+          Create magical stories
+          <br />
+          for your child
         </h1>
 
         <p className="text-lg text-[#3D4635] mb-12 leading-relaxed">
-          Personalized, age-appropriate stories generated instantly. Perfect for bedtime,
-          quiet time, or sparking your child's imagination anytime.
+          Personalized, age-appropriate stories generated instantly. Perfect for
+          bedtime, quiet time, or sparking your child's imagination anytime.
         </p>
 
         <div className="flex flex-wrap justify-center gap-6 text-sm text-[#3D4635] mb-12">
-          {["Age-appropriate content", "Instant generation", "Safe & inclusive"].map((text) => (
+          {[
+            "Age-appropriate content",
+            "Instant generation",
+            "Safe & inclusive",
+          ].map((text) => (
             <div key={text} className="flex items-center gap-2">
               <span className="w-2 h-2 bg-[#97B48E] rounded-full inline-block"></span>
               {text}
@@ -46,13 +53,11 @@ export default function HeroSection({ onGenerateStory, isGenerating }) {
 
         {/* Story Form */}
         <div className="mb-12">
-          <StoryForm onGenerateStory={onGenerateStory} isGenerating={isGenerating} />
+          <StoryForm
+            onGenerateStory={onGenerateStory}
+            isGenerating={isGenerating}
+          />
         </div>
-
-        {/* Parents Love It */}
-        {/* <div className="mb-12">
-          <ParentsLoveIt />
-        </div> */}
       </div>
     </section>
   );
