@@ -35,7 +35,7 @@ export default function StoryLength({ value, onChange }) {
           ))}
         </SelectContent>
       </Select>
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-gray-500 text-left">
         Perfect for different situations and attention spans
       </p>
     </div>

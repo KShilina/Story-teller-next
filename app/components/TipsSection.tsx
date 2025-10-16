@@ -4,7 +4,7 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 export default function TipsSection() {
   return (
-    <section className="relative bg-gradient-to-b from-green-100 to-green-50 py-20">
+    <section className="relative bg-gradient-to-b from-green-100 bg-[#BD8585] py-20">
       <div className="absolute inset-0 opacity-10">
         <ImageWithFallback
           src="https://images.unsplash.com/photo-1647682212314-33376a4ec0eb?crop=entropy&fit=max&q=80&w=1080"

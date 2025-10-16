@@ -11,23 +11,6 @@ export default function ParentsLoveIt() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-green-900/30 to-transparent"></div>
       </div>
-
-      <div className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl border border-green-200">
-        <h3 className="font-semibold text-gray-900 mb-3">Parents love it too</h3>
-        <div className="space-y-3">
-          {[
-            `"My child asks for their personalized stories every night!"`,
-            `"Finally, stories that match their imagination!"`,
-          ].map((quote) => (
-            <blockquote
-              key={quote}
-              className="text-sm italic text-gray-700 border-l-3 border-green-400 pl-3"
-            >
-              {quote}
-            </blockquote>
-          ))}
-        </div>
-      </div>
     </>
   );
 }
