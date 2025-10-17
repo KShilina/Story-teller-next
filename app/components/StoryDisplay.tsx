@@ -74,7 +74,7 @@ export default function StoryDisplay({
         <div className="flex items-center justify-center gap-2 mb-2">
           <BookOpen className="h-5 w-5 text-green-600" />
           <h2 className="text-xl font-semibold text-gray-900">
-            {childName}&apos;s Story
+            {"{childName}'s Story"}
           </h2>
         </div>
         <p className="text-gray-700">{topic}</p>

@@ -16,7 +16,7 @@ export default function TipsSection() {
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Make story time special</h2>
-          <p className="text-gray-700">Tips to enhance your child&apos;s storytelling experience</p>
+          <p className="text-gray-700">{"Tips to enhance your child's storytelling experience"}</p>
         </div>
         <ParentTips />
       </div>
