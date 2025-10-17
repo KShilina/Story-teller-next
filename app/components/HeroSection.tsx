@@ -30,7 +30,7 @@ export default function HeroSection({ onGenerateStory, isGenerating }) {
 
         <p className="text-lg text-[#3D4635] mb-12 leading-relaxed">
           Personalized, age-appropriate stories generated instantly. Perfect for
-          bedtime, quiet time, or sparking your child's imagination anytime.
+          bedtime, quiet time, or sparking your child&apos;s imagination anytime.
         </p>
 
         <div className="flex flex-wrap justify-center gap-6 text-sm text-[#3D4635] mb-12">
