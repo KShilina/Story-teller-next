@@ -69,7 +69,7 @@ const StoryForm: FC<StoryFormProps> = ({
   const [childName, setChildName] = useState("");
   const [age, setAge] = useState("");
   const [topic, setTopic] = useState("");
-  const [length, setLength] = useState("");
+  const [length, setLength] = useState("medium");
   const [customTopic, setCustomTopic] = useState("");
   const [emotionDetection, setEmotionDetection] = useState("");
 
@@ -89,7 +89,11 @@ const StoryForm: FC<StoryFormProps> = ({
   };
 
   const isValid =
-    childName.trim() && age && parseInt(age) >= 1 && parseInt(age) <= 18;
+    childName.trim() &&
+    age && 
+    parseInt(age) >= 1 &&
+    parseInt(age) <= 18 &&
+    length;
 
   return (
     <div className="w-full max-w-lg mx-auto bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border border-green-200 overflow-hidden">
