@@ -4,7 +4,7 @@ import DOMPurify from "dompurify";
 export interface GenerateStoryData {
   childName: string;
   age: number;
-  topic: string;
+  topic?: string;
   length: string;
   emotionDetection?: string;
 }

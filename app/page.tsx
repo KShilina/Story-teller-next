@@ -1,4 +1,5 @@
 "use client";
+
 import { useStoryReducer } from "./hooks/useStoryReducer";
 import StoryDisplay from "./components/StoryDisplay";
 import { generateStory as generateStoryAPI } from "./components/StoryGenerator";
@@ -7,10 +8,18 @@ import HeroSection from "./components/HeroSection";
 import TipsSection from "./components/TipsSection";
 import Footer from "./components/Footer";
 
+export interface StoryData {
+  childName: string;
+  age: number;
+  topic?: string;
+  length: string;
+  emotionDetection?: string;
+}
+
 export default function App() {
   const [state, dispatch] = useStoryReducer();
 
-  const handleGenerateStory = async (data) => {
+  const handleGenerateStory = async (data: StoryData) => {
     dispatch({ type: "START_GENERATION", payload: data });
     try {
       const story = await generateStoryAPI(data);
@@ -34,10 +43,10 @@ export default function App() {
       ) : (
         <StoryDisplay
           story={state.story}
-          childName={state.storyData?.childName}
-          topic={state.storyData?.topic}
-          onCreateNew={handleCreateNew}
+          childName={state.storyData?.childName ?? ""}
+          topic={state.storyData?.topic ?? ""}
           emotionDetection={state.storyData?.emotionDetection}
+          onCreateNew={handleCreateNew}
         />
       )}
       <Footer />
