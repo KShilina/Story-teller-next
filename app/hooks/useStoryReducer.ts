@@ -1,9 +1,11 @@
 import { useReducer, Dispatch } from "react";
 
 interface StoryData {
-  childName?: string;
-  age?: number;
+  childName: string;
+  age: number;
   topic?: string;
+  length: string;
+  emotionDetection?: string;
 }
 
 interface State {

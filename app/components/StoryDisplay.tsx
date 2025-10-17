@@ -8,7 +8,7 @@ import StoryTranslator from "./StoryTranslator";
 interface StoryDisplayProps {
   story: string;
   childName: string;
-  topic: string;
+  topic?: string;
   emotionDetection?: string;
   onCreateNew: () => void;
 }
