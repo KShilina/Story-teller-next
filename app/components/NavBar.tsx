@@ -9,7 +9,7 @@ export default function NavBar() {
           {/* --- Left Section: Logo + Title --- */}
           <div className="flex items-center gap-3">
             <div className="bg-[#A7C7A1] p-2 rounded-xl shadow-sm flex items-center justify-center">
-              <BookOpen className="h-5 w-5 text-[#3B3F2E]" />
+              <BookOpen className="h-5 w-5 text-[#BD8581]" />
             </div>
 
             <div className="flex flex-col leading-tight">
