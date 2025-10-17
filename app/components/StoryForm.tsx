@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FC } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -51,8 +51,21 @@ const emotionList = [
   "Proud",
   "Grateful",
 ];
+interface StoryFormProps {
+  onGenerateStory: (data: {
+    childName: string;
+    age: number;
+    topic?: string;
+    length: string;
+    emotionDetection?: string;
+  }) => void;
+  isGenerating: boolean;
+}
 
-export default function StoryForm({ onGenerateStory, isGenerating }) {
+const StoryForm: FC<StoryFormProps> = ({
+  onGenerateStory,
+  isGenerating,
+}) => {
   const [childName, setChildName] = useState("");
   const [age, setAge] = useState("");
   const [topic, setTopic] = useState("");
@@ -224,4 +237,6 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
       </div>
     </div>
   );
-}
+};
+
+export default StoryForm;
