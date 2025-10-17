@@ -68,7 +68,10 @@ const HeroSection: FC<HeroSectionProps> = ({
         </div>
 
         {/* Story Form */}
-        <div className="mb-12">
+        <div className="relative mb-12">
+          <div className="absolute -left-66 top-86 w-36 h-38 rounded-full blur-3xl bg-[#BD8585]/40 rotate-6"></div>
+          <div className="absolute -right-64 top-28 w-36 h-20 rounded-full blur-3xl bg-[#BD8585]/70 -rotate-12"></div>
+
           <StoryForm
             onGenerateStory={onGenerateStory}
             isGenerating={isGenerating}
