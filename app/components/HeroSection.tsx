@@ -1,10 +1,25 @@
 "use client";
 
+import { FC } from "react";
 import StoryForm from "./StoryForm";
 import WhyChildrenLoveIt from "./WhyChildrenLoveIt";
 import { Sparkles } from "lucide-react";
 
-export default function HeroSection({ onGenerateStory, isGenerating }) {
+interface HeroSectionProps {
+  onGenerateStory: (data: {
+    childName: string;
+    age: number;
+    topic?: string;
+    length: string;
+    emotionDetection?: string;
+  }) => void;
+  isGenerating: boolean;
+}
+
+const HeroSection: FC<HeroSectionProps> = ({
+  onGenerateStory,
+  isGenerating,
+}) => {
   return (
     <section className="relative bg-gradient-to-b from-[#E4E9DC] to-[#F6F8F4] overflow-hidden py-20">
       <div className="absolute top-0 left-0 w-full h-64 sm:h-80 md:h-96 overflow-hidden">
@@ -29,8 +44,9 @@ export default function HeroSection({ onGenerateStory, isGenerating }) {
         </h1>
 
         <p className="text-lg text-[#3D4635] mb-12 leading-relaxed">
-          Personalized, age-appropriate stories generated instantly. Perfect for
-          bedtime, quiet time, or sparking your child's imagination anytime.
+          {
+            "Personalized, age-appropriate stories generated instantly. Perfect for bedtime, quiet time, or sparking your child's imagination anytime."
+          }
         </p>
 
         <div className="flex flex-wrap justify-center gap-6 text-sm text-[#3D4635] mb-12">
@@ -61,4 +77,6 @@ export default function HeroSection({ onGenerateStory, isGenerating }) {
       </div>
     </section>
   );
-}
+};
+
+export default HeroSection;

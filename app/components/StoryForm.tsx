@@ -99,7 +99,7 @@ export default function StoryForm({ onGenerateStory, isGenerating }) {
           {/* Child Name */}
           <div className="space-y-1">
             <Label htmlFor="childName" className="text-gray-900 font-medium">
-              Child's Name
+              {"Child's Name"}
             </Label>
             <Input
               id="childName"
