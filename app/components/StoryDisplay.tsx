@@ -1,22 +1,30 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, FC } from "react";
 import { Button } from "./ui/button";
 import { BookOpen, RotateCcw, Download, Volume2 } from "lucide-react";
 import StoryTranslator from "./StoryTranslator";
 
-export default function StoryDisplay({
+interface StoryDisplayProps {
+  story: string;
+  childName: string;
+  topic: string;
+  emotionDetection?: string;
+  onCreateNew: () => void;
+}
+
+const StoryDisplay: FC<StoryDisplayProps> = ({
   story,
   childName,
   topic,
   emotionDetection,
   onCreateNew,
-}) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [audioUrl, setAudioUrl] = useState(null);
-  const audioRef = useRef(null);
+}) => {
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const handleDownload = () => {
+  const handleDownload = (): void => {
     const element = document.createElement("a");
     const file = new Blob([story], { type: "text/plain" });
     element.href = URL.createObjectURL(file);
@@ -26,7 +34,7 @@ export default function StoryDisplay({
     document.body.removeChild(element);
   };
 
-  const handlePlayAudio = async () => {
+  const handlePlayAudio = async (): Promise<void> => {
     try {
       if (audioRef.current && !audioRef.current.paused) {
         audioRef.current.pause();
@@ -35,7 +43,7 @@ export default function StoryDisplay({
       }
 
       if (audioUrl) {
-        audioRef.current.play();
+        audioRef.current?.play();
         setIsPlaying(true);
         return;
       }
@@ -62,7 +70,7 @@ export default function StoryDisplay({
       audio.onended = () => setIsPlaying(false);
     } catch (error) {
       console.error("Play Audio Error:", error);
-      alert(error.message);
+      if (error instanceof Error) alert(error.message);
       setIsPlaying(false);
     }
   };
@@ -74,7 +82,7 @@ export default function StoryDisplay({
         <div className="flex items-center justify-center gap-2 mb-2">
           <BookOpen className="h-5 w-5 text-green-600" />
           <h2 className="text-xl font-semibold text-gray-900">
-            {"{childName}'s Story"}
+            {`${childName}'s Story`}
           </h2>
         </div>
         <p className="text-gray-700">{topic}</p>
@@ -128,4 +136,6 @@ export default function StoryDisplay({
       </div>
     </div>
   );
-}
+};
+
+export default StoryDisplay;

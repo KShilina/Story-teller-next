@@ -1,19 +1,50 @@
 import DOMPurify from "dompurify";
 
+// Define the shape of the input data
+export interface GenerateStoryData {
+  childName: string;
+  age: number;
+  topic: string;
+  length: string;
+  emotionDetection?: string;
+}
+
+// Define types for the hypothetical Writer API
+interface WriterOptions {
+  tone: string;
+  length: string;
+  format: string;
+  sharedContext: string;
+}
+
+interface Writer {
+  writeStreaming(prompt: string): AsyncIterable<string>;
+}
+
+interface WriterAPI {
+  create(options: WriterOptions): Promise<Writer>;
+}
+
+// Extend the Window interface to include Writer
+declare global {
+  interface Window {
+    Writer: WriterAPI;
+  }
+}
+
 /**
  * Generates a story based on child data.
- * @param {Object} data - { childName, age, topic, length }
- * @returns {Promise<string>} - Generated story
+ * @param data Object containing childName, age, topic, length, emotionDetection
+ * @returns Promise<string> Generated and sanitized story text
  */
-export async function generateStory(data) {
-  console.log("here is data:", data)
+export async function generateStory(data: GenerateStoryData): Promise<string> {
   // Check if Writer API is supported
   if (!("Writer" in window)) {
     return "Your browser doesn’t support the Writer API. Use Chrome and join the Early Preview Program.";
   }
 
-  const context = `${data.childName}, age ${data.age}, topic: ${data?.topic}`;
-  const options = {
+  const context = `${data.childName}, age ${data.age}, topic: ${data.topic}`;
+  const options: WriterOptions = {
     tone: "neutral",
     length: data.length,
     format: "markdown",
@@ -25,9 +56,9 @@ export async function generateStory(data) {
     const writer = await window.Writer.create(options);
 
     // Construct prompt
-    const prompt = `Write a story for ${data.childName} about "${data.topic}" include "${data.emotionDetection}". Keep it age-appropriate for age ${data.age}.`;
+    const prompt = `Write a story for ${data.childName} about "${data.topic}" include "${data.emotionDetection || ""}". Keep it age-appropriate for age ${data.age}.`;
 
-    // Start streaming response
+    // Stream and collect the response
     let fullResponse = "";
     const stream = writer.writeStreaming(prompt);
 
@@ -35,7 +66,7 @@ export async function generateStory(data) {
       fullResponse += chunk;
     }
 
-    // Sanitize HTML output (if you plan to render it with dangerouslySetInnerHTML)
+    // Sanitize before returning
     return DOMPurify.sanitize(fullResponse);
   } catch (err) {
     console.error("Error generating story:", err);

@@ -1,14 +1,39 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { Button } from "./ui/button";
 import { Languages } from "lucide-react";
 
-export default function StoryTranslator({ story }) {
+interface StoryTranslatorProps {
+  story: string;
+}
+
+// These APIs are experimental; define minimal types to satisfy TS
+declare const LanguageDetector: {
+  create: () => Promise<{
+    detect: (text: string) => Promise<{ detectedLanguage: string }[]>;
+  }>;
+};
+
+declare const Translator: {
+  availability: (params: {
+    sourceLanguage: string;
+    targetLanguage: string;
+  }) => Promise<"available" | "unavailable">;
+
+  create: (params: {
+    sourceLanguage: string;
+    targetLanguage: string;
+  }) => Promise<{
+    translate: (text: string) => Promise<string>;
+  }>;
+};
+
+export default function StoryTranslator({ story }: StoryTranslatorProps) {
   const [supported, setSupported] = useState(true);
-  const [targetLang, setTargetLang] = useState(""); // empty means no selection
-  const [translatedStory, setTranslatedStory] = useState("");
-  const [isTranslating, setIsTranslating] = useState(false);
+  const [targetLang, setTargetLang] = useState<string>("");
+  const [translatedStory, setTranslatedStory] = useState<string>("");
+  const [isTranslating, setIsTranslating] = useState<boolean>(false);
 
   useEffect(() => {
     if (!("LanguageDetector" in self) || !("Translator" in self)) {
@@ -16,7 +41,7 @@ export default function StoryTranslator({ story }) {
     }
   }, []);
 
-  const handleTranslate = async (e) => {
+  const handleTranslate = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!targetLang) return;
 
@@ -52,12 +77,17 @@ export default function StoryTranslator({ story }) {
   };
 
   if (!supported) {
-    return <p>Your browser doesn’t support the Language Detector or Translator API.</p>;
+    return (
+      <p>Your browser doesn’t support the Language Detector or Translator API.</p>
+    );
   }
 
   return (
     <div className="mb-6">
-      <form onSubmit={handleTranslate} className="flex flex-col sm:flex-row gap-4 items-center">
+      <form
+        onSubmit={handleTranslate}
+        className="flex flex-col sm:flex-row gap-4 items-center"
+      >
         <select
           value={targetLang}
           onChange={(e) => setTargetLang(e.target.value)}
@@ -74,7 +104,7 @@ export default function StoryTranslator({ story }) {
         <Button
           type="submit"
           disabled={isTranslating || !targetLang}
-          className="h-12 px-6 bg-green-600 text-white flex items-center gap-2"
+          className="h-12 px-6 bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
         >
           <Languages className="h-4 w-4" />
           {isTranslating ? "Translating..." : "Translate"}
@@ -83,8 +113,12 @@ export default function StoryTranslator({ story }) {
 
       {translatedStory && (
         <div className="bg-yellow-50/70 p-6 rounded-xl mt-4 border border-yellow-200">
-          <h3 className="font-semibold text-yellow-800 mb-2">Translated Story:</h3>
-          <div className="whitespace-pre-wrap text-gray-800">{translatedStory}</div>
+          <h3 className="font-semibold text-yellow-800 mb-2">
+            Translated Story:
+          </h3>
+          <div className="whitespace-pre-wrap text-gray-800">
+            {translatedStory}
+          </div>
         </div>
       )}
     </div>
