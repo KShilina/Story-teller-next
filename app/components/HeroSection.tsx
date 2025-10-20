@@ -22,10 +22,11 @@ const HeroSection: FC<HeroSectionProps> = ({
 }) => {
   return (
     <section className="relative bg-gradient-to-b from-[#E4E9DC] to-[#F6F8F4] overflow-hidden py-20">
+      {/* Background Blobs */}
       <div className="absolute top-0 left-0 w-full h-64 sm:h-80 md:h-96 overflow-hidden">
-        <div className="absolute top-10 left-10 w-24 h-24 rounded-full blur-3xl bg-[#BD8585]"></div>
-        <div className="absolute top-40 right-20 w-32 h-32 rounded-full blur-3xl bg-[#BD8585]"></div>
-        <div className="absolute bottom-20 left-1/4 w-20 h-20 rounded-full blur-3xl bg-[#BD8585]"></div>
+        <div className="absolute top-10 left-10 w-24 h-24 rounded-full blur-3xl bg-[#BD8585]" />
+        <div className="absolute top-40 right-20 w-32 h-32 rounded-full blur-3xl bg-[#BD8585]" />
+        <div className="absolute bottom-20 left-1/4 w-20 h-20 rounded-full blur-3xl bg-[#BD8585]" />
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
@@ -56,7 +57,7 @@ const HeroSection: FC<HeroSectionProps> = ({
             "Safe & inclusive",
           ].map((text) => (
             <div key={text} className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-[#97B48E] rounded-full inline-block"></span>
+              <span className="w-2 h-2 bg-[#97B48E] rounded-full inline-block" />
               {text}
             </div>
           ))}
