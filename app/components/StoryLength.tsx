@@ -27,7 +27,7 @@ export default function StoryLength({ value, onChange }: StoryLengthProps) {
         htmlFor="storyLength"
         className="w-full border-green-200 focus:ring-green-500"
       >
-        Story Length
+        Story Length*
       </Label>
 
       <Select onValueChange={onChange} value={value}>
@@ -44,9 +44,9 @@ export default function StoryLength({ value, onChange }: StoryLengthProps) {
         </SelectContent>
       </Select>
 
-      <p className="text-xs text-gray-500 text-left">
+      {/* <p className="text-xs text-gray-500 text-left">
         Perfect for different situations and attention spans
-      </p>
+      </p> */}
     </div>
   );
 }

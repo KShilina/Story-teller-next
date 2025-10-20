@@ -30,7 +30,7 @@ export default function NavBar() {
             </div>
             <div className="flex items-center gap-2 hover:text-[#F5F6ED] transition-colors">
               <Users className="h-4 w-4 text-[#C9DAB7]" />
-              <span>Ages 1–18</span>
+              <span>Ages 1–12</span>
             </div>
           </div>
         </div>
