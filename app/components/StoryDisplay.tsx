@@ -85,35 +85,45 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border border-green-200 my-8">
+    <section className="relative bg-gradient-to-b from-[#E4E9DC] to-[#F6F8F4] overflow-hidden py-20">
+    {/* Background Blobs */}
+    <div className="absolute top-0 left-0 w-full h-64 sm:h-80 md:h-96 overflow-hidden">
+      <div className="absolute top-10 left-10 w-24 h-24 rounded-full blur-3xl bg-[#BD8585]" />
+      <div className="absolute top-40 right-20 w-32 h-32 rounded-full blur-3xl bg-[#BD8585]" />
+      <div className="absolute bottom-20 left-1/4 w-20 h-20 rounded-full blur-3xl bg-[#BD8585]" />
+    </div>
+    <div className="w-full max-w-4xl mx-auto bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border-roseBorder my-8">
+
       {/* Header */}
       <div className="text-center p-6 bg-green-50 rounded-t-2xl">
         <div className="flex items-center justify-center gap-2 mb-2">
-          <BookOpen className="h-5 w-5 text-green-600" />
-          <h2 className="text-xl font-semibold text-gray-900">
+          <BookOpen className="h-5 w-5 text-[#BD8581]" />
+          <h2 className="text-xl font-semibold text-gray-700">
             {`${childName}'s Story`}
           </h2>
         </div>
-        <p className="text-gray-700">{topic}</p>
+        <p className="text-[#BD8581] font-semibold">{topic}</p>
         {emotionDetection && (
           <p className="text-gray-700 italic">{emotionDetection}</p>
         )}
       </div>
-
+      
+ 
       {/* Story Content */}
       <div className="p-8">
-        <div className="bg-green-50/50 p-8 rounded-xl mb-8 border border-green-100">
+        <div className="bg-green-50/50 p-8 rounded-xl mb-8 border border-[#F6EFEF]">
           <div className="whitespace-pre-wrap leading-relaxed text-gray-800">
             {story}
           </div>
         </div>
+
 
   <div className="flex flex-col sm:flex-column gap-4 justify-center">
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             onClick={handlePlayAudio}
-            className="h-12 px-6 bg-[#BD8585] hover:bg-[#A46E6E] text-white flex items-center gap-2 transition-colors"
+            className="h-12 px-6 bg-[#BD8581] hover:bg-[#A46E6E] text-white font-semibold flex items-center gap-2 transition-colors"
           >
             <Volume2 className="h-4 w-4" />
             {isPlaying ? "Pause Story" : "Play Story"}
@@ -122,7 +132,7 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
           <Button
             onClick={onCreateNew}
             variant="outline"
-            className="h-12 px-6 bg-[#BD8585] border-[#BD8585] text-white hover:bg-[#A46E6E] hover:border-[#A46E6E] flex items-center gap-2 transition-colors"
+            className="h-12 px-6 bg-[#A7C7A1] hover:bg-[#94B78C] text-white font-semibold flex items-center gap-2 transition-colors"
           >
             <RotateCcw className="h-4 w-4" />
             Create Another Story
@@ -130,12 +140,13 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
 
           <Button
             onClick={handleDownload}
-            className="h-12 px-6 bg-[#BD8585] hover:bg-[#A46E6E] text-white flex items-center gap-2"
+            className="h-12 px-6 bg-[#A7C7A1] hover:bg-[#94B78C] text-white font-semibold flex items-center gap-2 transition-colors"
           >
             <Download className="h-4 w-4" />
             Save Story
           </Button>
         </div>
+
 
         {/* Translator Component */}
         <div className="flex justify-center mb-8">
@@ -143,9 +154,11 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
             <StoryTranslator story={story} />
           </div>
         </div>
+        
       </div>
       </div>
     </div>
+    </section>
   );
 };
 

@@ -98,12 +98,12 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg border border-green-100 p-5 sm:p-6"
+      className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg border border-[#F6EFEF] p-5 sm:p-6"
     >
       {/* Header */}
       <div className="text-center mb-5">
         <div className="flex items-center justify-center gap-2 mb-1">
-          <Sparkles className="h-4 w-4 text-green-600" />
+          <Sparkles className="h-4 w-4 text-[#BD8581]" />
           <h2 className="text-base sm:text-lg font-semibold text-gray-900">
             Create Your Story
           </h2>
@@ -117,7 +117,7 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Child Name */}
         <div className="grid gap-1.5">
-          <Label htmlFor="childName" className="text-sm font-medium text-gray-800">
+          <Label htmlFor="childName" className="text-sm font-medium text-gray-800 italic">
             Child’s Name*
           </Label>
           <Input
@@ -125,14 +125,14 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
             value={childName}
             onChange={(e) => setChildName(e.target.value)}
             placeholder="Enter name"
-            className="h-10 text-sm border-green-200 focus:ring-green-500"
+            className="h-10 text-sm border-[#F6EFEF]"
             required
           />
         </div>
 
         {/* Age */}
         <div className="grid gap-1.5">
-          <Label htmlFor="age" className="text-sm font-medium text-gray-800">
+          <Label htmlFor="age" className="text-sm font-medium text-gray-800 italic">
             Age*
           </Label>
           <Input
@@ -143,7 +143,7 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
             value={age}
             onChange={(e) => setAge(e.target.value)}
             placeholder="1–12"
-            className="h-10 text-sm border-green-200 focus:ring-green-500"
+            className="h-10 text-sm border-[#F6EFEF]"
             required
           />
         </div>
@@ -154,20 +154,20 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
         {/* Topic */}
         <div className="grid gap-1.5">
           <div className="flex items-center justify-between">
-            <Label htmlFor="topic" className="text-sm font-medium text-gray-800">
+            <Label htmlFor="topic" className="text-sm font-medium text-gray-800 italic">
               Adventure Theme
             </Label>
             <button
               type="button"
               onClick={handleRandomTopic}
-              className="text-xs text-green-600 flex items-center gap-1 hover:underline"
+              className="text-xs text-[#BD8581] flex items-center gap-1 hover:underline"
             >
               <Shuffle className="h-3 w-3" />
               Surprise me
             </button>
           </div>
           <Select value={topic} onValueChange={setTopic}>
-            <SelectTrigger className="h-10 text-sm border-green-200 focus:ring-green-500">
+            <SelectTrigger className="h-10 text-sm border-[#F6EFEF] focus:ring-green-500">
               <SelectValue placeholder="Select or surprise theme" />
             </SelectTrigger>
             <SelectContent className="bg-white border-green-100 rounded-lg shadow-md">
@@ -182,7 +182,7 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
 
         {/* Custom Topic */}
         <div className="grid gap-1.5">
-          <Label htmlFor="customTopic" className="text-sm font-medium text-gray-800">
+          <Label htmlFor="customTopic" className="text-sm font-medium text-gray-800 italic">
             Custom Theme
           </Label>
           <Input
@@ -190,17 +190,17 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
             value={customTopic}
             onChange={(e) => setCustomTopic(e.target.value)}
             placeholder="Type your idea"
-            className="h-10 text-sm border-green-200 focus:ring-green-500"
+            className="h-10 text-sm border-[#F6EFEF] focus:ring-green-500"
           />
         </div>
 
         {/* Emotion */}
         <div className="grid gap-1.5">
-          <Label htmlFor="emotionDetection" className="text-sm font-medium text-gray-800">
+          <Label htmlFor="emotionDetection" className="text-sm font-medium text-gray-800 italic">
             Emotion
           </Label>
           <Select value={emotionDetection} onValueChange={setEmotionDetection}>
-            <SelectTrigger className="h-10 text-sm border-green-200 focus:ring-green-500">
+            <SelectTrigger className="h-10 text-sm border-[#F6EFEF] focus:ring-green-500">
               <SelectValue placeholder="Select emotion" />
             </SelectTrigger>
             <SelectContent className="bg-white border-green-100 rounded-lg shadow-md">
@@ -220,7 +220,7 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
           className={`w-full h-10 mt-2 text-sm font-medium rounded-lg flex items-center justify-center gap-2 ${
             isGenerating
               ? "bg-green-500/70 cursor-wait"
-              : "bg-green-600 hover:bg-green-700 text-white"
+              : "bg-[#BD8581] hover:bg-[#8F5E5E] text-white"
           }`}
         >
           {isGenerating ? (

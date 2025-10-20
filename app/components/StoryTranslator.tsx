@@ -134,7 +134,6 @@ export default function StoryTranslator({ story }: { story: string }) {
                 className="w-full h-11 px-4 rounded-md bg-white border border-[#B7C8A1] text-[#3E4A2B] font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-[#94A77A] focus:border-transparent transition-all appearance-none"
               >
                 <option value="">🌍 Language</option>
-                <option value="en">🇬🇧 English</option>
                 <option value="fr">🇫🇷 French</option>
                 <option value="ja">🇯🇵 Japanese</option>
                 <option value="pt">🇵🇹 Portuguese</option>
@@ -166,7 +165,7 @@ export default function StoryTranslator({ story }: { story: string }) {
 
           {/* Translated Story */}
           {translatedStory && (
-            <div className="mt-4 bg-[#EFF2E0]/70 border border-[#C7D1A6] rounded-md p-5 text-gray-900 transition-all shadow-sm">
+            <div className="mt-4 w-full bg-[#EFF2E0]/70 border border-[#C7D1A6] rounded-md p-5 text-gray-900 transition-all shadow-sm">
               <h3 className="font-semibold text-[#5A6645] mb-2">Translated Story:</h3>
               <div className="whitespace-pre-wrap leading-relaxed">
                 {translatedStory}

@@ -25,17 +25,17 @@ export default function StoryLength({ value, onChange }: StoryLengthProps) {
     <div className="space-y-2">
       <Label
         htmlFor="storyLength"
-        className="w-full border-green-200 focus:ring-green-500"
+        className="w-full border-[#F6EFEF] focus:ring-green-500 italic"
       >
         Story Length*
       </Label>
 
       <Select onValueChange={onChange} value={value}>
-        <SelectTrigger className="w-full border-green-200 focus:ring-green-500">
+        <SelectTrigger className="w-full border-[#F6EFEF] focus:ring-green-500">
           <SelectValue placeholder="Choose story length" />
         </SelectTrigger>
 
-        <SelectContent className="z-[9999] bg-white shadow-lg border border-green-100 rounded-xl">
+        <SelectContent className="z-[9999] bg-white shadow-lg border border-[#F6EFEF] rounded-xl">
           {listStoryLength.map((length) => (
             <SelectItem key={length.value} value={length.value}>
               {length.label}
