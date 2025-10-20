@@ -34,17 +34,24 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
     document.body.removeChild(element);
   };
 
-  const handlePlayAudio = async (): Promise<void> => {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handlePlayAudio = async () => {
+    if (isProcessing) return; // prevent multiple clicks
+    setIsProcessing(true);
+
     try {
       if (audioRef.current && !audioRef.current.paused) {
         audioRef.current.pause();
         setIsPlaying(false);
+        setIsProcessing(false);
         return;
       }
 
       if (audioUrl) {
         audioRef.current?.play();
         setIsPlaying(true);
+        setIsProcessing(false);
         return;
       }
 
@@ -72,6 +79,8 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
       console.error("Play Audio Error:", error);
       if (error instanceof Error) alert(error.message);
       setIsPlaying(false);
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -99,18 +108,12 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
           </div>
         </div>
 
-        {/* Translator Component */}
-        <div className="flex justify-center mb-8">
-          <div className="w-full max-w-md">
-            <StoryTranslator story={story} />
-          </div>
-        </div>
-
+  <div className="flex flex-col sm:flex-column gap-4 justify-center">
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
             onClick={handlePlayAudio}
-            className="h-12 px-6 bg-green-600 text-white flex items-center gap-2"
+            className="h-12 px-6 bg-[#BD8585] hover:bg-[#A46E6E] text-white flex items-center gap-2 transition-colors"
           >
             <Volume2 className="h-4 w-4" />
             {isPlaying ? "Pause Story" : "Play Story"}
@@ -119,7 +122,7 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
           <Button
             onClick={onCreateNew}
             variant="outline"
-            className="h-12 px-6 border-green-300 text-green-700 hover:bg-green-50 flex items-center gap-2"
+            className="h-12 px-6 bg-[#BD8585] border-[#BD8585] text-white hover:bg-[#A46E6E] hover:border-[#A46E6E] flex items-center gap-2 transition-colors"
           >
             <RotateCcw className="h-4 w-4" />
             Create Another Story
@@ -127,12 +130,20 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
 
           <Button
             onClick={handleDownload}
-            className="h-12 px-6 bg-green-600 hover:bg-green-700 text-white flex items-center gap-2"
+            className="h-12 px-6 bg-[#BD8585] hover:bg-[#A46E6E] text-white flex items-center gap-2"
           >
             <Download className="h-4 w-4" />
             Save Story
           </Button>
         </div>
+
+        {/* Translator Component */}
+        <div className="flex justify-center mb-8">
+          <div className="w-full max-w-md flex justify-center">
+            <StoryTranslator story={story} />
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   );
