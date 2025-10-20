@@ -69,7 +69,7 @@ const StoryForm: FC<StoryFormProps> = ({
   const [childName, setChildName] = useState("");
   const [age, setAge] = useState("");
   const [topic, setTopic] = useState("");
-  const [length, setLength] = useState("");
+  const [length, setLength] = useState("medium");
   const [customTopic, setCustomTopic] = useState("");
   const [emotionDetection, setEmotionDetection] = useState("");
 
@@ -89,7 +89,11 @@ const StoryForm: FC<StoryFormProps> = ({
   };
 
   const isValid =
-    childName.trim() && age && parseInt(age) >= 1 && parseInt(age) <= 18;
+    childName.trim() &&
+    age && 
+    parseInt(age) >= 1 &&
+    parseInt(age) <= 18 &&
+    length;
 
   return (
     <div className="w-full max-w-lg mx-auto bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border border-green-200 overflow-hidden">
@@ -112,14 +116,14 @@ const StoryForm: FC<StoryFormProps> = ({
           {/* Child Name */}
           <div className="space-y-1">
             <Label htmlFor="childName" className="text-gray-900 font-medium">
-              {"Child's Name"}
+              {"Child's Name*"}
             </Label>
             <Input
               id="childName"
               value={childName}
               onChange={(e) => setChildName(e.target.value)}
               placeholder="Enter your child's name"
-              className="h-12 border-green-300 focus:border-green-600 focus:ring-green-600/10"
+              className="w-full border-green-200 focus:ring-green-500"
               required
             />
           </div>
@@ -127,7 +131,7 @@ const StoryForm: FC<StoryFormProps> = ({
           {/* Age */}
           <div className="space-y-1">
             <Label htmlFor="age" className="text-gray-900 font-medium">
-              Age
+              Age*
             </Label>
             <Input
               id="age"
@@ -136,13 +140,10 @@ const StoryForm: FC<StoryFormProps> = ({
               max="18"
               value={age}
               onChange={(e) => setAge(e.target.value)}
-              placeholder="Age (1-18)"
-              className="h-12 border-green-300 focus:border-green-600 focus:ring-green-600/10"
+              placeholder="Age (1-12)"
+              className="w-full border-green-200 focus:ring-green-500"
               required
             />
-            <p className="text-xs text-gray-500 text-left">
-              Stories are automatically tailored to be age-appropriate
-            </p>
           </div>
 
           {/* Topic Select */}
@@ -162,9 +163,6 @@ const StoryForm: FC<StoryFormProps> = ({
                 ))}
               </SelectContent>
             </Select>
-            <p className="text-xs text-gray-500 text-left">
-              Each theme creates unique story variations
-            </p>
           </div>
 
           {/* Custom Topic */}
@@ -177,11 +175,8 @@ const StoryForm: FC<StoryFormProps> = ({
               value={customTopic}
               onChange={(e) => setCustomTopic(e.target.value)}
               placeholder="Type your own story idea (optional)"
-              className="h-12 border-green-300 focus:border-green-600 focus:ring-green-600/10"
+              className="w-full border-green-200 focus:ring-green-500"
             />
-            <p className="text-xs text-gray-500 text-left">
-              If filled, your custom theme will replace the selected one
-            </p>
           </div>
 
           {/* Emotion Detection */}
@@ -207,9 +202,6 @@ const StoryForm: FC<StoryFormProps> = ({
                 ))}
               </SelectContent>
             </Select>
-            <p className="text-xs text-gray-500 text-left">
-              Each emotion creates unique story variations
-            </p>
           </div>
 
           {/* Story Length */}
