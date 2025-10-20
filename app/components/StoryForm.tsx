@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, FC } from "react";
+import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -12,7 +13,7 @@ import {
   SelectValue,
 } from "./ui/select";
 import StoryLength from "./StoryLength";
-import { Wand2, Sparkles } from "lucide-react";
+import { Wand2, Sparkles, Shuffle } from "lucide-react";
 
 const storyTopics = [
   "Adventure in Space",
@@ -43,14 +44,11 @@ const emotionList = [
   "Hopeful",
   "Kind",
   "Funny",
-  "Surprised",
   "Adventurous",
-  "Scared",
-  "Sad",
-  "Lonely",
   "Proud",
   "Grateful",
 ];
+
 interface StoryFormProps {
   onGenerateStory: (data: {
     childName: string;
@@ -62,10 +60,7 @@ interface StoryFormProps {
   isGenerating: boolean;
 }
 
-const StoryForm: FC<StoryFormProps> = ({
-  onGenerateStory,
-  isGenerating,
-}) => {
+const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
   const [childName, setChildName] = useState("");
   const [age, setAge] = useState("");
   const [topic, setTopic] = useState("");
@@ -77,157 +72,171 @@ const StoryForm: FC<StoryFormProps> = ({
     e.preventDefault();
     if (childName && age) {
       const finalTopic = customTopic.trim() || topic || "Surprise Adventure";
-      const storyEmotion = emotionDetection.trim();
       onGenerateStory({
         childName: childName.trim(),
         age: parseInt(age),
         topic: finalTopic,
         length,
-        emotionDetection: storyEmotion,
+        emotionDetection,
       });
     }
   };
 
+  const handleRandomTopic = () => {
+    const random = storyTopics[Math.floor(Math.random() * storyTopics.length)];
+    setTopic(random);
+  };
+
   const isValid =
     childName.trim() &&
-    age && 
+    age &&
     parseInt(age) >= 1 &&
     parseInt(age) <= 18 &&
     length;
 
   return (
-    <div className="w-full max-w-lg mx-auto bg-white/95 backdrop-blur-sm rounded-3xl shadow-xl border border-green-200 overflow-hidden">
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg border border-green-100 p-5 sm:p-6"
+    >
       {/* Header */}
-      <div className="text-center p-6 bg-green-50 rounded-t-3xl">
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <Sparkles className="h-5 w-5 text-[#BD8581]" />
-          <h2 className="text-lg font-semibold text-gray-900">
+      <div className="text-center mb-5">
+        <div className="flex items-center justify-center gap-2 mb-1">
+          <Sparkles className="h-4 w-4 text-green-600" />
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900">
             Create Your Story
           </h2>
         </div>
-        <p className="text-gray-700 text-sm">
-          Tell us about your child for a personalized adventure
+        <p className="text-xs sm:text-sm text-gray-500">
+          Personalize your child’s adventure in seconds.
         </p>
       </div>
 
       {/* Form */}
-      <div className="p-6 space-y-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Child Name */}
-          <div className="space-y-1">
-            <Label htmlFor="childName" className="text-gray-900 font-medium">
-              {"Child's Name*"}
-            </Label>
-            <Input
-              id="childName"
-              value={childName}
-              onChange={(e) => setChildName(e.target.value)}
-              placeholder="Enter your child's name"
-              className="w-full border-green-200 focus:ring-green-500"
-              required
-            />
-          </div>
+      <form onSubmit={handleSubmit} className="space-y-4">git status
+        {/* Child Name */}
+        <div className="grid gap-1.5">
+          <Label htmlFor="childName" className="text-sm font-medium text-gray-800">
+            Child’s Name*
+          </Label>
+          <Input
+            id="childName"
+            value={childName}
+            onChange={(e) => setChildName(e.target.value)}
+            placeholder="Enter name"
+            className="h-10 text-sm border-green-200 focus:ring-green-500"
+            required
+          />
+        </div>
 
-          {/* Age */}
-          <div className="space-y-1">
-            <Label htmlFor="age" className="text-gray-900 font-medium">
-              Age*
-            </Label>
-            <Input
-              id="age"
-              type="number"
-              min="1"
-              max="18"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              placeholder="Age (1-12)"
-              className="w-full border-green-200 focus:ring-green-500"
-              required
-            />
-          </div>
+        {/* Age */}
+        <div className="grid gap-1.5">
+          <Label htmlFor="age" className="text-sm font-medium text-gray-800">
+            Age*
+          </Label>
+          <Input
+            id="age"
+            type="number"
+            min="1"
+            max="18"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            placeholder="1–12"
+            className="h-10 text-sm border-green-200 focus:ring-green-500"
+            required
+          />
+        </div>
 
-          {/* Topic Select */}
-          <div className="space-y-1">
-            <Label htmlFor="topic" className="text-gray-900 font-medium">
+         {/* Story Length */}
+         <StoryLength value={length} onChange={setLength} />
+
+        {/* Topic */}
+        <div className="grid gap-1.5">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="topic" className="text-sm font-medium text-gray-800">
               Adventure Theme
             </Label>
-            <Select value={topic} onValueChange={setTopic}>
-              <SelectTrigger className="w-full border-green-200 focus:ring-green-500">
-                <SelectValue placeholder="Select Topic" />
-              </SelectTrigger>
-              <SelectContent className="z-[9999] bg-white shadow-lg border border-green-100 rounded-xl max-h-60 overflow-auto">
-                {storyTopics.map((t) => (
-                  <SelectItem key={t} value={t}>
-                    {t}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Custom Topic */}
-          <div className="space-y-1">
-            <Label htmlFor="customTopic" className="text-gray-900 font-medium">
-              Create Your Own Theme
-            </Label>
-            <Input
-              id="customTopic"
-              value={customTopic}
-              onChange={(e) => setCustomTopic(e.target.value)}
-              placeholder="Type your own story idea (optional)"
-              className="w-full border-green-200 focus:ring-green-500"
-            />
-          </div>
-
-          {/* Emotion Detection */}
-          <div className="space-y-1">
-            <Label
-              htmlFor="emotionDetection"
-              className="text-gray-900 font-medium"
+            <button
+              type="button"
+              onClick={handleRandomTopic}
+              className="text-xs text-green-600 flex items-center gap-1 hover:underline"
             >
-              Emotion Detection
-            </Label>
-            <Select
-              value={emotionDetection}
-              onValueChange={setEmotionDetection}
-            >
-              <SelectTrigger className="w-full border-green-200 focus:ring-green-500">
-                <SelectValue placeholder="Select Emotion" />
-              </SelectTrigger>
-              <SelectContent className="z-[9999] bg-white shadow-lg border border-green-100 rounded-xl max-h-60 overflow-auto">
-                {emotionList.map((emotion) => (
-                  <SelectItem key={emotion} value={emotion}>
-                    {emotion}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <Shuffle className="h-3 w-3" />
+              Surprise me
+            </button>
           </div>
+          <Select value={topic} onValueChange={setTopic}>
+            <SelectTrigger className="h-10 text-sm border-green-200 focus:ring-green-500">
+              <SelectValue placeholder="Select or surprise theme" />
+            </SelectTrigger>
+            <SelectContent className="bg-white border-green-100 rounded-lg shadow-md">
+              {storyTopics.map((t) => (
+                <SelectItem key={t} value={t}>
+                  {t}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
-          {/* Story Length */}
-          <StoryLength value={length} onChange={setLength} />
+        {/* Custom Topic */}
+        <div className="grid gap-1.5">
+          <Label htmlFor="customTopic" className="text-sm font-medium text-gray-800">
+            Custom Theme
+          </Label>
+          <Input
+            id="customTopic"
+            value={customTopic}
+            onChange={(e) => setCustomTopic(e.target.value)}
+            placeholder="Type your idea"
+            className="h-10 text-sm border-green-200 focus:ring-green-500"
+          />
+        </div>
 
-          {/* Submit */}
-          <Button
-            type="submit"
-            disabled={!isValid || isGenerating}
-            className="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-medium rounded-xl disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
-          >
-            {isGenerating ? (
-              <>
-                <Wand2 className="animate-spin h-4 w-4" />
-                Creating your story...
-              </>
-            ) : (
-              <>
-                <Sparkles className="h-4 w-4" />
-                Generate Story
-              </>
-            )}
-          </Button>
-        </form>
-      </div>
-    </div>
+        {/* Emotion */}
+        <div className="grid gap-1.5">
+          <Label htmlFor="emotionDetection" className="text-sm font-medium text-gray-800">
+            Emotion
+          </Label>
+          <Select value={emotionDetection} onValueChange={setEmotionDetection}>
+            <SelectTrigger className="h-10 text-sm border-green-200 focus:ring-green-500">
+              <SelectValue placeholder="Select emotion" />
+            </SelectTrigger>
+            <SelectContent className="bg-white border-green-100 rounded-lg shadow-md">
+              {emotionList.map((emotion) => (
+                <SelectItem key={emotion} value={emotion}>
+                  {emotion}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Submit */}
+        <Button
+          type="submit"
+          disabled={!isValid || isGenerating}
+          className={`w-full h-10 mt-2 text-sm font-medium rounded-lg flex items-center justify-center gap-2 ${
+            isGenerating
+              ? "bg-green-500/70 cursor-wait"
+              : "bg-green-600 hover:bg-green-700 text-white"
+          }`}
+        >
+          {isGenerating ? (
+            <>
+              <Wand2 className="animate-spin h-4 w-4" />
+              Creating story...
+            </>
+          ) : (
+            <>
+              <Sparkles className="h-4 w-4" />
+              Generate Story
+            </>
+          )}
+        </Button>
+      </form>
+    </motion.div>
   );
 };
 
