@@ -4,6 +4,37 @@ import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Languages } from "lucide-react";
 
+// Define types for browser translation APIs
+interface LanguageDetectorResult {
+  detectedLanguage: string;
+  confidence: number;
+}
+
+interface LanguageDetector {
+  detect: (text: string) => Promise<LanguageDetectorResult[]>;
+}
+
+interface TranslatorAvailabilityParams {
+  sourceLanguage: string;
+  targetLanguage: string;
+}
+
+interface Translator {
+  translate: (text: string) => Promise<string>;
+}
+
+interface TranslatorAPI {
+  availability: (params: TranslatorAvailabilityParams) => Promise<"available" | "unavailable">;
+  create: (params: TranslatorAvailabilityParams) => Promise<Translator>;
+}
+
+interface ExtendedWindow extends Window {
+  LanguageDetector?: {
+    create: () => Promise<LanguageDetector>;
+  };
+  Translator?: TranslatorAPI;
+}
+
 export default function StoryTranslator({ story }: { story: string }) {
   const [supported, setSupported] = useState(true);
   const [targetLang, setTargetLang] = useState("");
@@ -12,7 +43,7 @@ export default function StoryTranslator({ story }: { story: string }) {
   const [isMultilingual, setIsMultilingual] = useState(false);
 
   useEffect(() => {
-    if (!("LanguageDetector" in self) || !("Translator" in self)) {
+    if (!("LanguageDetector" in window) || !("Translator" in window)) {
       setSupported(false);
     }
   }, []);
@@ -23,11 +54,15 @@ export default function StoryTranslator({ story }: { story: string }) {
 
     setIsTranslating(true);
     try {
-      const detector = await (window as any).LanguageDetector.create();
+      const extendedWindow = window as ExtendedWindow;
+
+      const detector = await extendedWindow.LanguageDetector?.create();
+      if (!detector) throw new Error("LanguageDetector not available");
+
       const detected = await detector.detect(story.trim());
       const sourceLanguage = detected[0]?.detectedLanguage || "en";
 
-      const availability = await (window as any).Translator.availability({
+      const availability = await extendedWindow.Translator?.availability({
         sourceLanguage,
         targetLanguage: targetLang,
       });
@@ -37,10 +72,12 @@ export default function StoryTranslator({ story }: { story: string }) {
         return;
       }
 
-      const translator = await (window as any).Translator.create({
+      const translator = await extendedWindow.Translator?.create({
         sourceLanguage,
         targetLanguage: targetLang,
       });
+
+      if (!translator) throw new Error("Translator creation failed");
 
       const translation = await translator.translate(story.trim());
       setTranslatedStory(translation);
@@ -97,7 +134,6 @@ export default function StoryTranslator({ story }: { story: string }) {
                 className="w-full h-11 px-4 rounded-md bg-white border border-[#B7C8A1] text-[#3E4A2B] font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-[#94A77A] focus:border-transparent transition-all appearance-none"
               >
                 <option value="">🌍 Language</option>
-                <option value="en">🇬🇧 English</option>
                 <option value="fr">🇫🇷 French</option>
                 <option value="ja">🇯🇵 Japanese</option>
                 <option value="pt">🇵🇹 Portuguese</option>
@@ -113,11 +149,7 @@ export default function StoryTranslator({ story }: { story: string }) {
                 stroke="currentColor"
                 strokeWidth="2"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </div>
 
@@ -133,10 +165,8 @@ export default function StoryTranslator({ story }: { story: string }) {
 
           {/* Translated Story */}
           {translatedStory && (
-            <div className="mt-4 bg-[#EFF2E0]/70 border border-[#C7D1A6] rounded-md p-5 text-gray-900 transition-all shadow-sm">
-              <h3 className="font-semibold text-[#5A6645] mb-2">
-                Translated Story:
-              </h3>
+            <div className="mt-4 w-full bg-[#EFF2E0]/70 border border-[#C7D1A6] rounded-md p-5 text-gray-900 transition-all shadow-sm">
+              <h3 className="font-semibold text-[#5A6645] mb-2">Translated Story:</h3>
               <div className="whitespace-pre-wrap leading-relaxed">
                 {translatedStory}
               </div>
