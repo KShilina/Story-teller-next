@@ -114,7 +114,7 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit} className="space-y-4">git status
+      <form onSubmit={handleSubmit} className="space-y-4">
         {/* Child Name */}
         <div className="grid gap-1.5">
           <Label htmlFor="childName" className="text-sm font-medium text-gray-800">
