@@ -31,7 +31,7 @@ export default function StoryLength({ value, onChange }: StoryLengthProps) {
       </Label>
 
       <Select onValueChange={onChange} value={value}>
-        <SelectTrigger className="w-full border-[#F6EFEF] focus:ring-green-500">
+        <SelectTrigger className="w-full border-[#F6EFEF] focus:ring-[#F6EFEF]">
           <SelectValue placeholder="Choose story length" />
         </SelectTrigger>
 

@@ -47,7 +47,7 @@ export default function WhyChildrenLoveIt() {
                 "Stories grow with them",
               ].map((item) => (
                 <li key={item} className="flex items-center space-x-2">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                  <div className="w-1.5 h-1.5 bg-[#97B48E] rounded-full"></div>
                   <span>{item}</span>
                 </li>
               ))}
@@ -77,7 +77,7 @@ export default function WhyChildrenLoveIt() {
                 `"Finally, stories that match their imagination!"`,
               ].map((item) => (
                 <li key={item} className="flex items-center space-x-2">
-                  <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                  <div className="w-1.5 h-1.5 bg-[#97B48E] rounded-full"></div>
                   <span>{item}</span>
                 </li>
               ))}

@@ -167,10 +167,10 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
             </button>
           </div>
           <Select value={topic} onValueChange={setTopic}>
-            <SelectTrigger className="h-10 text-sm border-[#F6EFEF] focus:ring-green-500">
+            <SelectTrigger className="h-10 text-sm border-[#F6EFEF] focus:ring-[#F6EFEF]">
               <SelectValue placeholder="Select or surprise theme" />
             </SelectTrigger>
-            <SelectContent className="bg-white border-green-100 rounded-lg shadow-md">
+            <SelectContent className="bg-white border-[#F6EFEF] rounded-lg shadow-md">
               {storyTopics.map((t) => (
                 <SelectItem key={t} value={t}>
                   {t}
@@ -200,10 +200,10 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
             Emotion
           </Label>
           <Select value={emotionDetection} onValueChange={setEmotionDetection}>
-            <SelectTrigger className="h-10 text-sm border-[#F6EFEF] focus:ring-green-500">
+            <SelectTrigger className="h-10 text-sm border-[#F6EFEF] focus:ring-[#F6EFEF]">
               <SelectValue placeholder="Select emotion" />
             </SelectTrigger>
-            <SelectContent className="bg-white border-green-100 rounded-lg shadow-md">
+            <SelectContent className="bg-white border-[#F6EFEF] rounded-lg shadow-md">
               {emotionList.map((emotion) => (
                 <SelectItem key={emotion} value={emotion}>
                   {emotion}
@@ -219,7 +219,7 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
           disabled={!isValid || isGenerating}
           className={`w-full h-10 mt-2 text-sm font-medium rounded-lg flex items-center justify-center gap-2 ${
             isGenerating
-              ? "bg-green-500/70 cursor-wait"
+              ? "bg-[#8F5E5E] cursor-wait"
               : "bg-[#BD8581] hover:bg-[#8F5E5E] text-white"
           }`}
         >
