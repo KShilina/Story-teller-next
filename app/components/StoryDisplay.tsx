@@ -88,8 +88,9 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
     <section className="relative bg-gradient-to-b from-[#E4E9DC] to-[#E4C8C8] overflow-hidden py-20">
     <div className="w-full max-w-4xl mx-auto bg-white/95 backdrop-blur-sm rounded-2xl shadow-lg border-roseBorder my-8">
 
+
       {/* Header */}
-      <div className="text-center p-6 bg-green-50 rounded-t-2xl">
+      <div className="text-center p-6 bg-[#F0F2E6] rounded-t-2xl">
         <div className="flex items-center justify-center gap-2 mb-2">
           <BookOpen className="h-5 w-5 text-[#BD8581]" />
           <h2 className="text-xl font-semibold text-gray-700">
@@ -105,7 +106,7 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
  
       {/* Story Content */}
       <div className="p-8">
-        <div className="bg-green-50/50 p-8 rounded-xl mb-8">
+        <div className="bg-white p-8 rounded-xl mb-8">
           <div className="whitespace-pre-wrap leading-relaxed text-gray-800">
             {story}
           </div>

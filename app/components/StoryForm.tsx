@@ -98,13 +98,13 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg border border-[#F6EFEF] p-5 sm:p-6"
+      className="w-full max-w-md mx-auto bg-white rounded-2xl shadow-lg border border-[#F6EFEF] p-5 sm:p-6 "
     >
       {/* Header */}
-      <div className="text-center mb-5">
+      <div className="text-center mb-5 ">
         <div className="flex items-center justify-center gap-2 mb-1">
           <Sparkles className="h-4 w-4 text-[#BD8581]" />
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900 ">
             Create Your Story
           </h2>
         </div>

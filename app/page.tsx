@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import HeroSection from "./components/HeroSection";
 import TipsSection from "./components/TipsSection";
 import Footer from "./components/Footer";
+import './globals.css';
 
 export interface StoryData {
   childName: string;

@@ -103,7 +103,7 @@ export default function StoryTranslator({ story }: { story: string }) {
         {/* Show question until user clicks Yes */}
         {!showTranslationUI ? (
           <div className="flex flex-col sm:flex-row items-center gap-3">
-            <p className="text-md font-medium text-[#3E4A2B]">
+            <p className="text-md font-medium text-[#3E4A2B] italic">
               Is your family multilingual?
             </p>
             <Button
@@ -111,7 +111,7 @@ export default function StoryTranslator({ story }: { story: string }) {
               onClick={() => setShowTranslationUI(true)}
               className="h-10 px-5 rounded-md bg-[#E7ECD9] text-[#3E4A2B] hover:bg-[#D9E3C0] transition-all"
             >
-              Yes
+              Yes, I want to traslate!
             </Button>
           </div>
         ) : (
@@ -164,11 +164,11 @@ export default function StoryTranslator({ story }: { story: string }) {
             </div>
             {/* Translated Story */}
             {translatedStory && (
-              <div className="bg-green-50/50 p-8 rounded-xl mb-8">
+              <div className="bg-white p-8 rounded-xl mb-8">
                 <h3 className="font-semibold text-[#5A6645] mb-2">
                   Translated Story:
                 </h3>
-                <div className="whitespace-pre-wrap leading-relaxed">
+                <div className="whitespace-pre-wrap leading-loose">
                   {translatedStory}
                 </div>
               </div>

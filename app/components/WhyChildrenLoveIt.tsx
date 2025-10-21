@@ -23,7 +23,8 @@ export default function WhyChildrenLoveIt() {
       </motion.div>
 
       {/* Two motion boxes */}
-      <div className="flex flex-col md:flex-row gap-6 items-stretch">
+      <div className="flex flex-col md:flex-row gap-6 items-stretch max-w-3xl mx-auto">
+
         {/* Left motion box */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -34,56 +35,63 @@ export default function WhyChildrenLoveIt() {
           className="flex-1 flex"
         >
           <div
-            className="bg-gradient-to-br from-[#F8FAF5] to-[#E7EFDF] border border-[#C9D8C1] 
+            className=" bg-white border border-[#C9D8C1] 
                           rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6 w-full"
           >
-            <h3 className="font-semibold text-[#3D4635] mb-3 text-left">
+            <h3 className="font-semibold text-[#3D4635] mb-3 text-center">
               Why children love it
             </h3>
             <ul className="space-y-2 text-gray-700">
-              {[
-                "They become the main character",
-                "Choose their own adventure",
-                "Stories grow with them",
-              ].map((item) => (
-                <li key={item} className="flex items-center space-x-2">
-                  <div className="w-1.5 h-1.5 bg-[#97B48E] rounded-full"></div>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+  {[
+    "– They become the main character",
+    "– Choose their own adventure",
+    "– Stories grow with them",
+  ].map((item) => (
+    <li key={item} className="flex items-center space-x-2 italic">
+      <span>{item}</span>
+    </li>
+  ))}
+</ul>
+
           </div>
         </motion.div>
 
-        {/* Right motion box */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          whileHover={{ scale: 1.03 }}
-          viewport={{ once: true }}
-          className="flex-1 flex"
-        >
-          <div
-            className="bg-gradient-to-br from-[#F8FAF5] to-[#E7EFDF] border border-[#C9D8C1]
-                          rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6 w-full"
-          >
-            <h3 className="font-semibold text-gray-900 mb-3 text-left">
-              Parents love it too
-            </h3>
-            <ul className="space-y-2 text-gray-700">
-              {[
-                `"My child asks for new stories every night!"`,
-                `"Finally, stories that match their imagination!"`,
-              ].map((item) => (
-                <li key={item} className="flex items-center space-x-2">
-                  <div className="w-1.5 h-1.5 bg-[#97B48E] rounded-full"></div>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </motion.div>
+      
+       {/* Right motion box */}
+<motion.div
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4, delay: 0.2 }}
+  whileHover={{ scale: 1.03 }}
+  viewport={{ once: true }}
+  className="flex-1 flex"
+>
+  <div
+    className=" bg-white border border-[#C9D8C1]
+                rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-6 w-full"
+  >
+    <h3 className="font-semibold text-[#3D4635] mb-3 text-center">
+      Parents love it too
+    </h3>
+
+    <div className="space-y-4 text-gray-700">
+      <div>
+        <p className="italic text-gray-800">
+          “My child asks for new stories every night!”
+        </p>
+        <p className="text-sm text-gray-600 mt-1">– Katya Sh., Parent of a 4-year-old</p>
+      </div>
+
+      <div>
+        <p className="italic text-gray-800">
+          “Finally, stories that match their imagination!”
+        </p>
+        <p className="text-sm text-gray-600 mt-1">– Ilya N., Father of two</p>
+      </div>
+    </div>
+  </div>
+</motion.div>
+
       </div>
     </>
   );

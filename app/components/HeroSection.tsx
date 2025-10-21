@@ -21,7 +21,8 @@ const HeroSection: FC<HeroSectionProps> = ({
   isGenerating,
 }) => {
   return (
-    <section className="relative bg-gradient-to-b from-[#E4E9DC] to-[#E4C8C8] overflow-hidden py-20">
+
+    <section className="relative bg-gradient-to-b from-[#ECEEEA] to-[#EBD9D9] overflow-hidden py-20">
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         {/* Intro */}
         <div className="inline-flex items-center justify-center gap-2 bg-[#BCE0B0]/40 px-4 py-2 rounded-full mb-6 mx-auto">
@@ -31,17 +32,12 @@ const HeroSection: FC<HeroSectionProps> = ({
           </span>
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-[#353D2D] mb-6 leading-tight">
-          Create magical stories
-          <br />
-          for your child
-        </h1>
-
-        <p className="text-lg text-[#3D4635] mb-12 leading-relaxed">
-          {
-            "Personalized, age-appropriate stories generated instantly. Perfect for bedtime, quiet time, or sparking your child's imagination anytime."
-          }
-        </p>
+        <h2 className="text-3xl md:text-3xl font-bold text-[#353D2D] mb-6 leading-tight">
+         Works
+          offline with no data collection</h2>
+          
+          <h1 className="text-4xl md:text-5xl font-bold text-[#353D2D] mb-6 leading-tight">Magical stories for your child</h1>
+         
 
         <div className="flex flex-wrap justify-center gap-6 text-sm text-[#3D4635] mb-12">
           {[
