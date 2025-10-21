@@ -21,14 +21,7 @@ const HeroSection: FC<HeroSectionProps> = ({
   isGenerating,
 }) => {
   return (
-    <section className="relative bg-gradient-to-b from-[#E4E9DC] to-[#F6F8F4] overflow-hidden py-20">
-      {/* Background Blobs */}
-      <div className="absolute top-0 left-0 w-full h-64 sm:h-80 md:h-96 overflow-hidden">
-        <div className="absolute top-10 left-10 w-24 h-24 rounded-full blur-3xl bg-[#BD8585]" />
-        <div className="absolute top-40 right-20 w-32 h-32 rounded-full blur-3xl bg-[#BD8585]" />
-        <div className="absolute bottom-20 left-1/4 w-20 h-20 rounded-full blur-3xl bg-[#BD8585]" />
-      </div>
-
+    <section className="relative bg-gradient-to-b from-[#E4E9DC] to-[#E4C8C8] overflow-hidden py-20">
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         {/* Intro */}
         <div className="inline-flex items-center justify-center gap-2 bg-[#BCE0B0]/40 px-4 py-2 rounded-full mb-6 mx-auto">
@@ -70,9 +63,6 @@ const HeroSection: FC<HeroSectionProps> = ({
 
         {/* Story Form */}
         <div className="relative mb-12">
-          <div className="absolute -left-66 top-86 w-36 h-38 rounded-full blur-3xl bg-[#BD8585]/40 rotate-6"></div>
-          <div className="absolute -right-64 top-28 w-36 h-20 rounded-full blur-3xl bg-[#BD8585]/70 -rotate-12"></div>
-
           <StoryForm
             onGenerateStory={onGenerateStory}
             isGenerating={isGenerating}
