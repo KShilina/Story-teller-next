@@ -126,7 +126,7 @@ export default function StoryTranslator({ story }: { story: string }) {
                   <select
                     value={targetLang}
                     onChange={(e) => setTargetLang(e.target.value)}
-                    className="w-full h-11 px-4 rounded-md bg-white border border-[#B7C8A1] text-[#3E4A2B] font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-[#94A77A] focus:border-transparent transition-all appearance-none"
+                    className="w-40 h-11 px-4 rounded-md bg-white border border-[#B7C8A1] text-[#3E4A2B] font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-[#94A77A] focus:border-transparent transition-all appearance-none"
                   >
                     <option value="">🌍 Language</option>
                     <option value="fr">🇫🇷 French</option>
@@ -155,7 +155,7 @@ export default function StoryTranslator({ story }: { story: string }) {
                 <Button
                   type="submit"
                   disabled={isTranslating || !targetLang}
-                  className="h-11 px-5 flex items-center gap-2 rounded-md bg-gradient-to-r from-[#6F8056] to-[#5E7047] text-white font-medium shadow-sm hover:shadow-md hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="h-11 w-40 px-5 flex items-center gap-2 rounded-md bg-gradient-to-r from-[#6F8056] to-[#5E7047] text-white font-semibold shadow-sm hover:shadow-md hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <Languages className="h-4 w-4" />
                   {isTranslating ? "Translating..." : "Translate"}
@@ -164,7 +164,7 @@ export default function StoryTranslator({ story }: { story: string }) {
             </div>
             {/* Translated Story */}
             {translatedStory && (
-              <div className="mt-4 w-full rounded-md p-5 text-gray-900 transition-all shadow-sm">
+              <div className="bg-green-50/50 p-8 rounded-xl mb-8">
                 <h3 className="font-semibold text-[#5A6645] mb-2">
                   Translated Story:
                 </h3>

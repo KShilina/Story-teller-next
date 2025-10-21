@@ -111,7 +111,7 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
  
       {/* Story Content */}
       <div className="p-8">
-        <div className="bg-green-50/50 p-8 rounded-xl mb-8 border border-[#F6EFEF]">
+        <div className="bg-green-50/50 p-8 rounded-xl mb-8">
           <div className="whitespace-pre-wrap leading-relaxed text-gray-800">
             {story}
           </div>
@@ -131,7 +131,7 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
 
           <Button
             onClick={onCreateNew}
-            className="h-12 px-6 bg-[#A7C7A1] hover:bg-[#94B78C] text-white font-semibold flex items-center gap-2 transition-colors"
+            className="h-12 px-6 bg-gradient-to-r from-[#6F8056] to-[#5E7047] shadow-sm hover:shadow-md hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold flex items-center gap-2 transition-colors"
           >
             <RotateCcw className="h-4 w-4" />
             Create Another Story
@@ -139,7 +139,7 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
 
           <Button
             onClick={handleDownload}
-            className="h-12 px-6 bg-[#A7C7A1] hover:bg-[#94B78C] text-white font-semibold flex items-center gap-2 transition-colors"
+            className="h-12 px-6 bg-gradient-to-r from-[#6F8056] to-[#5E7047] shadow-sm hover:shadow-md hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold flex items-center gap-2 transition-colors"
           >
             <Download className="h-4 w-4" />
             Save Story
