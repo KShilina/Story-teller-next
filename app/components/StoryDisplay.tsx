@@ -131,7 +131,6 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
 
           <Button
             onClick={onCreateNew}
-            variant="outline"
             className="h-12 px-6 bg-[#A7C7A1] hover:bg-[#94B78C] text-white font-semibold flex items-center gap-2 transition-colors"
           >
             <RotateCcw className="h-4 w-4" />
@@ -149,10 +148,8 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
 
 
         {/* Translator Component */}
-        <div className="flex justify-center mb-8">
-          <div className="w-full max-w-md flex justify-center">
+        <div>
             <StoryTranslator story={story} />
-          </div>
         </div>
         
       </div>

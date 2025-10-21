@@ -217,9 +217,11 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
         <Button
           type="submit"
           disabled={!isValid || isGenerating}
-          className={`w-full h-10 mt-2 text-sm font-medium rounded-lg flex items-center justify-center gap-2 ${
+          className={`w-full h-10 mt-2 text-sm font-medium rounded-lg flex items-center justify-center gap-2 transition-colors ${
             isGenerating
               ? "bg-[#8F5E5E] cursor-wait"
+              : !isValid
+              ? "bg-gray-300 cursor-not-allowed text-gray-600"
               : "bg-[#BD8581] hover:bg-[#8F5E5E] text-white"
           }`}
         >
