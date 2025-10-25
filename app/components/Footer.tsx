@@ -11,7 +11,7 @@ export default function Footer() {
           </div>
           <div className="text-left">
             <span className="text-xl font-semibold tracking-tight">
-              StoryTeller AI
+            AI-Powered Storytelling
             </span>
             <div className="text-xs text-[#C6D4B9]">
               Making bedtime magical for every family

@@ -14,7 +14,7 @@ export default function NavBar() {
 
             <div className="flex flex-col leading-tight">
               <span className="text-lg sm:text-xl font-semibold text-[#F4F5EC] tracking-tight">
-                StoryTeller AI
+                AI-Powered Storytelling
               </span>
               <span className="text-xs text-[#C6D4B9]">
                 Personalized stories for kids
