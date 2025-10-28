@@ -1,6 +1,7 @@
 
 
-# AI-Powered Storytelling
+# AI-Powered Storytelling 
+The project deployed at the address https://story-teller-next.vercel.app/
 
 ## About the Project
 
