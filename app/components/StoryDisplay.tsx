@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, FC } from "react";
+import { useState, useRef, FC, useEffect } from "react";
 import { Button } from "./ui/button";
 import { BookOpen, RotateCcw, Download, Volume2 } from "lucide-react";
 import StoryTranslator from "./StoryTranslator";
@@ -25,6 +25,16 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
   const [isProcessing, setIsProcessing] = useState(false); // true when audio is generating or preparing
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // --- Cleanup on unmount ---
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+    };
+  }, []);
+
   const handleDownload = (): void => {
     const element = document.createElement("a");
     const file = new Blob([story], { type: "text/plain" });
@@ -40,6 +50,7 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
     setIsProcessing(true);
 
     try {
+      // If currently playing, pause
       if (audioRef.current && !audioRef.current.paused) {
         audioRef.current.pause();
         setIsPlaying(false);
@@ -47,6 +58,7 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
         return;
       }
 
+      // If audio already generated, resume
       if (audioUrl) {
         audioRef.current?.play();
         setIsPlaying(true);
@@ -54,6 +66,7 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
         return;
       }
 
+      // Otherwise, generate new audio
       setIsPlaying(true);
       const response = await fetch("/api/generate-audio", {
         method: "POST",
@@ -81,6 +94,22 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const handleCreateNewClick = () => {
+    // Stop audio playback before unmount
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
+
+    // Reset local state
+    setIsPlaying(false);
+    setIsProcessing(false);
+    setAudioUrl(null);
+
+    // Notify parent to reset story
+    onCreateNew();
   };
 
   return (
@@ -136,7 +165,7 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
               </Button>
 
               <Button
-                onClick={onCreateNew}
+                onClick={handleCreateNewClick}
                 className="h-12 px-6 bg-gradient-to-r from-[#6F8056] to-[#5E7047] shadow-sm hover:shadow-md hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold flex items-center gap-2 transition-colors"
               >
                 <RotateCcw className="h-4 w-4" />
