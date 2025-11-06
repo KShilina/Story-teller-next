@@ -2,7 +2,6 @@
 
 import { useState, FC } from "react";
 import { motion } from "framer-motion";
-import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import {
@@ -14,6 +13,8 @@ import {
 } from "./ui/select";
 import StoryLength from "./StoryLength";
 import { Wand2, Sparkles, Shuffle } from "lucide-react";
+import ActionButton from "./ActionButton";
+import { cn } from "./ui/utils";
 
 const storyTopics = [
   "Adventure in Space",
@@ -117,7 +118,10 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Child Name */}
         <div className="grid gap-1.5">
-          <Label htmlFor="childName" className="text-sm font-medium text-gray-800 italic">
+          <Label
+            htmlFor="childName"
+            className="text-sm font-medium text-gray-800 italic"
+          >
             Child’s Name*
           </Label>
           <Input
@@ -132,7 +136,10 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
 
         {/* Age */}
         <div className="grid gap-1.5">
-          <Label htmlFor="age" className="text-sm font-medium text-gray-800 italic">
+          <Label
+            htmlFor="age"
+            className="text-sm font-medium text-gray-800 italic"
+          >
             Age*
           </Label>
           <Input
@@ -148,13 +155,16 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
           />
         </div>
 
-         {/* Story Length */}
-         <StoryLength value={length} onChange={setLength} />
+        {/* Story Length */}
+        <StoryLength value={length} onChange={setLength} />
 
         {/* Topic */}
         <div className="grid gap-1.5">
           <div className="flex items-center justify-between">
-            <Label htmlFor="topic" className="text-sm font-medium text-gray-800 italic">
+            <Label
+              htmlFor="topic"
+              className="text-sm font-medium text-gray-800 italic"
+            >
               Adventure Theme
             </Label>
             <button
@@ -182,7 +192,10 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
 
         {/* Custom Topic */}
         <div className="grid gap-1.5">
-          <Label htmlFor="customTopic" className="text-sm font-medium text-gray-800 italic">
+          <Label
+            htmlFor="customTopic"
+            className="text-sm font-medium text-gray-800 italic"
+          >
             Custom Theme
           </Label>
           <Input
@@ -196,7 +209,10 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
 
         {/* Emotion */}
         <div className="grid gap-1.5">
-          <Label htmlFor="emotionDetection" className="text-sm font-medium text-gray-800 italic">
+          <Label
+            htmlFor="emotionDetection"
+            className="text-sm font-medium text-gray-800 italic"
+          >
             Emotion
           </Label>
           <Select value={emotionDetection} onValueChange={setEmotionDetection}>
@@ -212,31 +228,26 @@ const StoryForm: FC<StoryFormProps> = ({ onGenerateStory, isGenerating }) => {
             </SelectContent>
           </Select>
         </div>
-
-        {/* Submit */}
-        <Button
+        
+        <ActionButton
           type="submit"
+          isLoading={isGenerating}
           disabled={!isValid || isGenerating}
-          className={`w-full h-10 mt-2 text-sm font-medium rounded-lg flex items-center justify-center gap-2 transition-colors ${
+          label={isGenerating ? "Creating story..." : "Generate Story"}
+          icon={!isGenerating ? Sparkles : undefined}
+          loadingIcon={Wand2}
+          variant={
+            isGenerating ? "primary" : !isValid ? "secondary" : "primary"
+          }
+          className={cn(
+            "w-full mt-2 h-10 text-sm font-medium",
             isGenerating
               ? "bg-[#8F5E5E] cursor-wait"
               : !isValid
-              ? "bg-gray-300 cursor-not-allowed text-gray-600"
+              ? "bg-gray-300 cursor-not-allowed text-gray-600 hover:none"
               : "bg-[#BD8581] hover:bg-[#8F5E5E] text-white"
-          }`}
-        >
-          {isGenerating ? (
-            <>
-              <Wand2 className="animate-spin h-4 w-4" />
-              Creating story...
-            </>
-          ) : (
-            <>
-              <Sparkles className="h-4 w-4" />
-              Generate Story
-            </>
           )}
-        </Button>
+        />
       </form>
     </motion.div>
   );

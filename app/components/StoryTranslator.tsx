@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Languages } from "lucide-react";
+import ActionButton from "./ActionButton";
+import { Wand2 } from "lucide-react";
 
 interface LanguageDetectorResult {
   detectedLanguage: string;
@@ -106,13 +108,12 @@ export default function StoryTranslator({ story }: { story: string }) {
             <p className="text-md font-medium text-[#3E4A2B] italic">
               Is your family multilingual?
             </p>
-            <Button
-              type="button"
+            <ActionButton
+              label="Yes, I want to traslate!"
+              loadingIcon={Wand2}
+              variant="secondary"
               onClick={() => setShowTranslationUI(true)}
-              className="h-10 px-5 rounded-md bg-[#E7ECD9] text-[#3E4A2B] hover:bg-[#D9E3C0] transition-all"
-            >
-              Yes, I want to traslate!
-            </Button>
+            />
           </div>
         ) : (
           <>

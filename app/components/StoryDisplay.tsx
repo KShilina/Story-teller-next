@@ -2,8 +2,10 @@
 
 import { useState, useRef, FC, useEffect } from "react";
 import { Button } from "./ui/button";
-import { BookOpen, RotateCcw, Download, Volume2 } from "lucide-react";
+import { BookOpen, Download, Volume2 } from "lucide-react";
 import StoryTranslator from "./StoryTranslator";
+import ActionButton from "./ActionButton";
+import { PlusCircle } from "lucide-react";
 
 interface StoryDisplayProps {
   story: string;
@@ -164,13 +166,12 @@ const StoryDisplay: FC<StoryDisplayProps> = ({
                 )}
               </Button>
 
-              <Button
+              <ActionButton
+                label="Create Another Story"
+                icon={PlusCircle}
                 onClick={handleCreateNewClick}
-                className="h-12 px-6 bg-gradient-to-r from-[#6F8056] to-[#5E7047] shadow-sm hover:shadow-md hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold flex items-center gap-2 transition-colors"
-              >
-                <RotateCcw className="h-4 w-4" />
-                Create Another Story
-              </Button>
+                variant="success"
+              />
 
               <Button
                 onClick={handleDownload}
