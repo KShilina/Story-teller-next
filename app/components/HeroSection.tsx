@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import StoryForm from "./StoryForm";
-import WhyChildrenLoveIt from "./WhyChildrenLoveIt";
+import WhyLoveIt from "./WhyLoveIt";
 import { Sparkles } from "lucide-react";
 
 interface HeroSectionProps {
@@ -21,7 +21,6 @@ const HeroSection: FC<HeroSectionProps> = ({
   isGenerating,
 }) => {
   return (
-
     <section className="relative bg-gradient-to-b from-[#ECEEEA] to-[#EBD9D9] overflow-hidden py-20">
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
         {/* Intro */}
@@ -33,11 +32,12 @@ const HeroSection: FC<HeroSectionProps> = ({
         </div>
 
         <h2 className="text-3xl md:text-3xl font-bold text-[#353D2D] mb-6 leading-tight">
-         Works
-          offline with no data collection</h2>
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-[#353D2D] mb-6 leading-tight">Magical stories for your child</h1>
-         
+          Works offline with no data collection
+        </h2>
+
+        <h1 className="text-4xl md:text-5xl font-bold text-[#353D2D] mb-6 leading-tight">
+          Magical stories for your child
+        </h1>
 
         <div className="flex flex-wrap justify-center gap-6 text-sm text-[#3D4635] mb-12">
           {[
@@ -52,9 +52,9 @@ const HeroSection: FC<HeroSectionProps> = ({
           ))}
         </div>
 
-        {/* Why children love it */}
+        {/* Why love it */}
         <div className="mb-12">
-          <WhyChildrenLoveIt />
+          <WhyLoveIt />
         </div>
 
         {/* Story Form */}
